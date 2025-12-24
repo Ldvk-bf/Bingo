@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador de Bingo</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --bg: #f4f4f9;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: var(--bg);
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .display-number {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: white;
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:disabled { background: #ccc; }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .num-slot {
+            font-size: 0.8rem;
+            padding: 5px 0;
+            background: #eee;
+            color: #bbb;
+            border-radius: 3px;
+        }
+
+        .num-slot.called {
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+        }
+
+        .stats { margin-top: 15px; color: #666; }
+    </style>
+</head>
+<body>
+
+    <h2>Sorteador de Bingo</h2>
+    
+    <div class="display-number" id="currentNum">--</div>
+    
+    <button id="drawBtn" onclick="drawNext()">Sortear Próximo Número</button>
+    <button onclick="resetGame()" style="background: #95a5a6;">Reiniciar</button>
+
+    <div class="stats" id="stats">Números sorteados: 0 / 75</div>
+
+    <div class="history-grid" id="historyGrid">
+        </div>
+
+    <script>
+        let availableNumbers = Array.from({length: 75}, (_, i) => i + 1);
+        let calledNumbers = [];
+
+        function initHistory() {
+            const grid = document.getElementById('historyGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= 75; i++) {
+                const div = document.createElement('div');
+                div.className = 'num-slot';
+                div.id = 'slot-' + i;
+                div.innerText = i;
+                grid.appendChild(div);
+            }
+        }
+
+        function drawNext() {
+            if (availableNumbers.length === 0) {
+                alert("Todos os números já foram sorteados!");
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+            const number = availableNumbers.splice(randomIndex, 1)[0];
+            calledNumbers.push(number);
+
+            // Atualiza o destaque
+            document.getElementById('currentNum').innerText = number;
+            document.getElementById('slot-' + number).classList.add('called');
+            
+            // Atualiza estatísticas
+            document.getElementById('stats').innerText = `Números sorteados: ${calledNumbers.length} / 75`;
+            
+            if (availableNumbers.length === 0) {
+                document.getElementById('drawBtn').disabled = true;
+            }
+        }
+
+        function resetGame() {
+            if(confirm("Deseja reiniciar o sorteio?")){
+                availableNumbers = Array.from({length: 75}, (_, i) => i + 1);
+                calledNumbers = [];
+                document.getElementById('currentNum').innerText = '--';
+                document.getElementById('drawBtn').disabled = false;
+                document.getElementById('stats').innerText = `Números sorteados: 0 / 75`;
+                initHistory();
+            }
+        }
+
+        initHistory();
+    </script>
+</body>
+</html>

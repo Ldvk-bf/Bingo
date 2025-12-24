@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Interativo</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #f4f4f9;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 { color: var(--primary); margin-bottom: 10px; }
+
+        /* Grid da Cartela */
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Estilo dos Números */
+        .cell {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Estado Marcado */
+        .cell.marked {
+            background-color: var(--accent);
+            color: white;
+            border-color: #c0392b;
+            transform: scale(0.95);
+        }
+
+        .free-space {
+            background-color: #eee;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <h2>Sua Cartela</h2>
+    <div id="board" class="bingo-grid"></div>
+    <button onclick="generateBoard()">Gerar Nova Cartela</button>
+
+    <script>
+        function getRandomNumbers(min, max, count) {
+            const nums = [];
+            while(nums.length < count) {
+                const r = Math.floor(Math.random() * (max - min + 1)) + min;
+                if(!nums.includes(r)) nums.push(r);
+            }
+            return nums.sort((a, b) => a - b);
+        }
+
+        function generateBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            
+            // Regras clássicas: B(1-15), I(16-30), N(31-45), G(46-60), O(61-75)
+            const columns = [
+                getRandomNumbers(1, 15, 5),
+                getRandomNumbers(16, 30, 5),
+                getRandomNumbers(31, 45, 5),
+                getRandomNumbers(46, 60, 5),
+                getRandomNumbers(61, 75, 5)
+            ];
+
+            for (let row = 0; row < 5; row++) {
+                for (let col = 0; col < 5; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    
+                    if (row === 2 && col === 2) {
+                        cell.innerText = "FREE";
+                        cell.classList.add('marked', 'free-space');
+                    } else {
+                        cell.innerText = columns[col][row];
+                        cell.onclick = function() {
+                            this.classList.toggle('marked');
+                        };
+                    }
+                    board.appendChild(cell);
+                }
+            }
+        }
+
+        // Inicia a primeira cartela
+        generateBoard();
+    </script>
+</body>
+</html>
