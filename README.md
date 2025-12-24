@@ -1,3 +1,12 @@
+# Links importantes
+
+Para o sorteador
+https://ldvk-bf.github.io/Bingo/sorteador
+
+Para a cartela
+https://ldvk-bf.github.io/Bingo/sorteador
+
+
 # 🎰 Bingo de Fim de Ano
 
 Este é um projeto simples e funcional de **Bingo Interativo**, desenvolvido para facilitar a jogatina entre amigos e família durante as festas de final de ano. Chega de gastar papel ou procurar feijões para marcar a cartela!
