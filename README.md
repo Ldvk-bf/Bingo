@@ -1,11 +1,11 @@
-# Links importantes
+# 🔗 Links Rápidos
 
-Para o sorteador
-https://ldvk-bf.github.io/Bingo/sorteador
+Acesse as ferramentas através dos links abaixo:
 
-Para a cartela
-https://ldvk-bf.github.io/Bingo/sorteador
+* **[🎰 Abrir Painel do Sorteador](https://ldvk-bf.github.io/Bingo/sorteador)** – *Para quem vai coordenar o sorteio.*
+* **[📜 Gerar Minha Cartela](https://ldvk-bf.github.io/Bingo/cartela)** – *Para os jogadores participarem.*
 
+---
 
 # 🎰 Bingo de Fim de Ano
 
@@ -29,5 +29,5 @@ A ideia foi mostrar como a tecnologia pode ser usada para resolver problemas sim
 
 ## 🎮 Como usar
 
-1. **Jogadores:** Abram o arquivo da cartela. Cada um pode clicar em "Gerar Nova Cartela" para ter um jogo único. Para marcar, basta tocar no número anunciado.
-2. **Sorteador:** Quem for "cantar" o bingo abre o painel do sorteador, que garante que nenhum número se repita e mantém o histórico visível para conferência.
+1.  **Jogadores:** Abram o arquivo da cartela. Cada um pode clicar em "Gerar Nova Cartela" para ter um jogo único. Para marcar, basta tocar no número anunciado.
+2.  **Sorteador:** Quem for "cantar" o bingo abre o painel do sorteador, que garante que nenhum número se repita e mantém o histórico visível para conferência.
